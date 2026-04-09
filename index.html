@@ -1,111 +1,31 @@
 <!DOCTYPE html>
-<html lang="fr"><head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<html lang="fr">
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Itinéraire Corée du Sud 🇰🇷</title>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: #f7f6f3;
-    color: #1a1a1a;
-    min-height: 100vh;
-    padding: 2rem 1rem;
-  }
-
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f7f6f3; color: #1a1a1a; min-height: 100vh; padding: 2rem 1rem; }
   .container { max-width: 720px; margin: 0 auto; }
-
-  header {
-    text-align: center;
-    margin-bottom: 2rem;
-  }
-  header h1 {
-    font-size: 26px;
-    font-weight: 600;
-    color: #1a1a1a;
-    margin-bottom: 6px;
-  }
-  header p {
-    font-size: 14px;
-    color: #888;
-  }
-
-  /* TABS */
-  .tabs {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-    margin-bottom: 1.5rem;
-    background: #eeecea;
-    padding: 5px;
-    border-radius: 12px;
-  }
-  .tab {
-    flex: 1;
-    min-width: 100px;
-    padding: 8px 12px;
-    border-radius: 8px;
-    border: none;
-    background: transparent;
-    font-size: 13px;
-    font-weight: 500;
-    color: #777;
-    cursor: pointer;
-    transition: all 0.15s;
-    text-align: center;
-  }
+  header { text-align: center; margin-bottom: 2rem; }
+  header h1 { font-size: 26px; font-weight: 600; color: #1a1a1a; margin-bottom: 6px; }
+  header p { font-size: 14px; color: #888; }
+  .tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 1.5rem; background: #eeecea; padding: 5px; border-radius: 12px; }
+  .tab { flex: 1; min-width: 70px; padding: 8px 8px; border-radius: 8px; border: none; background: transparent; font-size: 13px; font-weight: 500; color: #777; cursor: pointer; transition: all 0.15s; text-align: center; }
   .tab:hover { color: #333; }
-  .tab.active {
-    background: #fff;
-    color: #1a1a1a;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  }
-
-  /* SECTIONS */
+  .tab.active { background: #fff; color: #1a1a1a; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
   .section { display: none; }
   .section.active { display: block; }
-
-  /* OVERVIEW */
-  .overview-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-    margin-bottom: 1.5rem;
-  }
+  .overview-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 1.5rem; }
   @media (max-width: 500px) { .overview-grid { grid-template-columns: repeat(2, 1fr); } }
-  .ov-card {
-    background: #fff;
-    border-radius: 10px;
-    padding: 14px 10px;
-    text-align: center;
-    border: 1px solid #e8e6e3;
-  }
+  .ov-card { background: #fff; border-radius: 10px; padding: 14px 10px; text-align: center; border: 1px solid #e8e6e3; }
   .ov-num { font-size: 22px; font-weight: 600; color: #1a1a1a; }
   .ov-label { font-size: 11px; color: #999; margin-top: 3px; text-transform: uppercase; letter-spacing: 0.04em; }
-
-  .intro-text {
-    font-size: 14px;
-    color: #555;
-    line-height: 1.75;
-    margin-bottom: 1.2rem;
-    background: #fff;
-    border-radius: 10px;
-    padding: 1rem 1.25rem;
-    border: 1px solid #e8e6e3;
-  }
-
-  .legend {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-    margin-bottom: 1rem;
-  }
+  .intro-text { font-size: 14px; color: #555; line-height: 1.75; margin-bottom: 1.2rem; background: #fff; border-radius: 10px; padding: 1rem 1.25rem; border: 1px solid #e8e6e3; }
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 1rem; }
   .leg-item { display: flex; align-items: center; gap: 7px; font-size: 13px; color: #666; }
   .leg-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
-
-  /* ROUTE */
   .route-wrap { padding: 0.5rem 0; }
   .route-stop { display: flex; gap: 14px; }
   .route-left { display: flex; flex-direction: column; align-items: center; width: 16px; flex-shrink: 0; padding-top: 4px; }
@@ -115,43 +35,12 @@
   .route-city { font-size: 15px; font-weight: 600; color: #1a1a1a; }
   .route-days { font-size: 12px; color: #999; margin-top: 1px; }
   .route-desc { font-size: 13px; color: #666; margin-top: 3px; line-height: 1.5; }
-  .kt-badge {
-    display: inline-block;
-    margin-top: 6px;
-    font-size: 11px;
-    padding: 3px 10px;
-    border-radius: 20px;
-    background: #EBF4FF;
-    color: #2563EB;
-    font-weight: 500;
-  }
-
-  /* DAY CARDS */
-  .day-card {
-    background: #fff;
-    border: 1px solid #e8e6e3;
-    border-radius: 12px;
-    margin-bottom: 8px;
-    overflow: hidden;
-    transition: border-color 0.15s;
-  }
+  .kt-badge { display: inline-block; margin-top: 6px; font-size: 11px; padding: 3px 10px; border-radius: 20px; background: #EBF4FF; color: #2563EB; font-weight: 500; }
+  .day-card { background: #fff; border: 1px solid #e8e6e3; border-radius: 12px; margin-bottom: 8px; overflow: hidden; transition: border-color 0.15s; }
   .day-card:hover { border-color: #ccc; }
   .day-card.open { border-color: #aaa; }
-  .day-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 14px 16px;
-    cursor: pointer;
-    user-select: none;
-  }
-  .d-num {
-    font-size: 11px;
-    font-weight: 600;
-    padding: 3px 10px;
-    border-radius: 20px;
-    white-space: nowrap;
-  }
+  .day-header { display: flex; align-items: center; gap: 10px; padding: 14px 16px; cursor: pointer; user-select: none; }
+  .d-num { font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; white-space: nowrap; }
   .d-num.blue   { background: #EBF4FF; color: #1D4ED8; }
   .d-num.green  { background: #ECFDF5; color: #065F46; }
   .d-num.amber  { background: #FFFBEB; color: #92400E; }
@@ -159,84 +48,57 @@
   .d-num.teal   { background: #F0FDFA; color: #134E4A; }
   .d-num.gray   { background: #F5F5F4; color: #44403C; }
   .d-title { font-size: 14px; font-weight: 600; color: #1a1a1a; flex: 1; }
-  .d-tag {
-    font-size: 11px;
-    color: #999;
-    background: #f5f4f2;
-    padding: 2px 8px;
-    border-radius: 8px;
-  }
+  .d-tag { font-size: 11px; color: #999; background: #f5f4f2; padding: 2px 8px; border-radius: 8px; }
   .chevron { color: #bbb; font-size: 11px; transition: transform 0.2s; flex-shrink: 0; }
   .day-card.open .chevron { transform: rotate(180deg); }
-
-  .day-body {
-    display: none;
-    padding: 0 16px 16px;
-    border-top: 1px solid #f0eeeb;
-  }
+  .day-body { display: none; padding: 0 16px 16px; border-top: 1px solid #f0eeeb; }
   .day-card.open .day-body { display: block; }
-
-  .transport-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 13px;
-    color: #555;
-    background: #f9f8f6;
-    padding: 8px 12px;
-    border-radius: 8px;
-    margin-bottom: 14px;
-    margin-top: 4px;
-  }
-
+  .transport-row { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #555; background: #f9f8f6; padding: 8px 12px; border-radius: 8px; margin-bottom: 14px; margin-top: 4px; }
   .activity { display: flex; gap: 10px; margin-bottom: 12px; align-items: flex-start; }
-  .act-icon {
-    width: 30px; height: 30px;
-    border-radius: 8px;
-    background: #f5f4f2;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 15px; flex-shrink: 0;
-  }
+  .act-icon { width: 30px; height: 30px; border-radius: 8px; background: #f5f4f2; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
   .act-name { font-size: 14px; font-weight: 600; color: #1a1a1a; margin-bottom: 2px; }
   .act-desc { font-size: 13px; color: #666; line-height: 1.55; }
+  .tip { background: #FFFBEB; border-left: 3px solid #F59E0B; border-radius: 0 8px 8px 0; padding: 8px 12px; font-size: 13px; color: #78350F; margin-top: 4px; line-height: 1.5; }
+  .section-label { font-size: 11px; font-weight: 600; color: #aaa; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 12px; }
 
-  .tip {
-    background: #FFFBEB;
-    border-left: 3px solid #F59E0B;
-    border-radius: 0 8px 8px 0;
-    padding: 8px 12px;
-    font-size: 13px;
-    color: #78350F;
-    margin-top: 4px;
-    line-height: 1.5;
-  }
+  /* ── AIRBNB CARDS ── */
+  .bnb-card { background: #fff; border: 1px solid #e8e6e3; border-radius: 16px; overflow: hidden; margin-bottom: 20px; transition: box-shadow 0.2s; }
+  .bnb-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.09); }
 
-  /* TIPS SECTION */
-  .tip-section-card {
-    background: #fff;
-    border: 1px solid #e8e6e3;
-    border-radius: 12px;
-    margin-bottom: 8px;
-    overflow: hidden;
-  }
-  .tip-section-card .day-header { cursor: pointer; }
+  /* Photo slider */
+  .slider { position: relative; width: 100%; height: 220px; overflow: hidden; background: #e8e6e3; }
+  .slider-track { display: flex; height: 100%; transition: transform 0.35s ease; }
+  .slider-track img { flex-shrink: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.92); border: none; border-radius: 50%; width: 32px; height: 32px; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 1px 6px rgba(0,0,0,0.18); transition: background 0.15s; z-index: 2; }
+  .slider-btn:hover { background: #fff; }
+  .slider-btn.prev { left: 10px; }
+  .slider-btn.next { right: 10px; }
+  .slider-dots { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); display: flex; gap: 5px; }
+  .slider-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.6); transition: background 0.2s; cursor: pointer; }
+  .slider-dot.active { background: #fff; }
 
-  /* SECTION LABEL */
-  .section-label {
-    font-size: 11px;
-    font-weight: 600;
-    color: #aaa;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    margin-bottom: 10px;
-  }
+  .bnb-body { padding: 16px; }
+  .bnb-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 6px; }
+  .bnb-name { font-size: 15px; font-weight: 700; color: #1a1a1a; line-height: 1.35; }
+  .bnb-price { text-align: right; flex-shrink: 0; }
+  .bnb-price-val { font-size: 18px; font-weight: 700; color: #1a1a1a; }
+  .bnb-price-lbl { font-size: 11px; color: #999; }
+  .bnb-location { font-size: 13px; color: #888; margin-bottom: 10px; }
+  .bnb-pills { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 14px; }
+  .pill { font-size: 11px; padding: 3px 9px; border-radius: 20px; border: 1px solid #eee; }
+  .pill-star { background: #FFF8E7; color: #92400E; border-color: #fde68a; }
+  .pill-coup { background: #FFF0F3; color: #9F1239; border-color: #fecdd3; }
+  .pill-rare { background: #F0FDF4; color: #166534; border-color: #bbf7d0; }
+  .pill-gray { background: #f5f4f2; color: #555; border-color: #e8e6e3; }
+  .bnb-dates { display: flex; border: 1px solid #e8e6e3; border-radius: 10px; overflow: hidden; margin-bottom: 14px; }
+  .bnb-date-col { flex: 1; padding: 10px 14px; }
+  .bnb-date-col:first-child { border-right: 1px solid #e8e6e3; }
+  .bnb-date-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: #999; margin-bottom: 4px; }
+  .bnb-date-val { font-size: 14px; font-weight: 600; color: #1a1a1a; }
+  .bnb-btn { display: block; width: 100%; padding: 12px; background: #FF385C; color: #fff; border: none; border-radius: 10px; font-size: 14px; font-weight: 600; text-align: center; text-decoration: none; transition: background 0.15s; }
+  .bnb-btn:hover { background: #e0314f; }
 
-  footer {
-    text-align: center;
-    margin-top: 2.5rem;
-    font-size: 12px;
-    color: #bbb;
-  }
+  footer { text-align: center; margin-top: 2.5rem; font-size: 12px; color: #bbb; }
 </style>
 </head>
 <body>
@@ -244,13 +106,14 @@
 
   <header>
     <h1>🇰🇷 Corée du Sud — 15 au 29 mai</h1>
-    <p>Aquababe & Alphababe · 14 jours · Séoul → Jeonju → Gyeongju → Busan → Yeosu → Andong → Séoul</p>
+    <p>2 personnes · 14 jours · Séoul → Jeonju → Gyeongju → Busan → Yeosu → Andong → Séoul</p>
   </header>
 
   <div class="tabs">
     <button class="tab active" onclick="showTab('overview', this)">Vue d'ensemble</button>
     <button class="tab" onclick="showTab('route', this)">Itinéraire</button>
     <button class="tab" onclick="showTab('days', this)">Jour par jour</button>
+    <button class="tab" onclick="showTab('logements', this)">🏠 Logements</button>
     <button class="tab" onclick="showTab('tips', this)">Conseils</button>
   </div>
 
@@ -262,9 +125,7 @@
       <div class="ov-card"><div class="ov-num">~1 400</div><div class="ov-label">km</div></div>
       <div class="ov-card"><div class="ov-num">KTX</div><div class="ov-label">Transport</div></div>
     </div>
-    <div class="intro-text">
-      Séoul juste le temps de s'acclimater, puis direction le sud. <strong>Jeonju</strong> pour la gastronomie et les hanok, <strong>Gyeongju</strong> l'ancienne capitale royale, <strong>Busan</strong> pour la mer, <strong>Yeosu</strong> pour les îles et la baie, et un détour par <strong>Andong</strong> et le village de Hahoe inscrit à l'UNESCO. Retour à Séoul pour la dernière nuit.
-    </div>
+    <div class="intro-text">Séoul juste le temps de s'acclimater, puis direction le sud. <strong>Jeonju</strong> pour la gastronomie et les hanok, <strong>Gyeongju</strong> l'ancienne capitale royale, <strong>Busan</strong> pour la mer, <strong>Yeosu</strong> pour les îles, et un détour par <strong>Andong</strong> et le village de Hahoe inscrit à l'UNESCO. Retour à Séoul pour la dernière nuit.</div>
     <div class="legend">
       <div class="leg-item"><div class="leg-dot" style="background:#2563EB"></div> Grandes villes</div>
       <div class="leg-item"><div class="leg-dot" style="background:#059669"></div> Nature / côtes</div>
@@ -276,190 +137,195 @@
   <div id="route" class="section">
     <p class="section-label">Trajet complet</p>
     <div class="route-wrap">
-
-      <div class="route-stop">
-        <div class="route-left"><div class="r-dot" style="background:#2563EB"></div><div class="r-line"></div></div>
-        <div class="route-content">
-          <div class="route-city">Séoul</div>
-          <div class="route-days">Jours 1–3 · 3 nuits</div>
-          <div class="route-desc">Arrivée, Gyeongbokgung, Bukchon, Hongdae, Insadong</div>
-        </div>
-      </div>
-
-      <div class="route-stop">
-        <div class="route-left"><div class="r-dot" style="background:#D97706"></div><div class="r-line"></div></div>
-        <div class="route-content">
-          <div class="route-city">Jeonju</div>
-          <div class="route-days">Jours 4–5 · 2 nuits</div>
-          <div class="route-desc">Village hanok, bibimbap, makgeolli, artisanat</div>
-          <span class="kt-badge">🚅 KTX Séoul → Jeonju · 2h</span>
-        </div>
-      </div>
-
-      <div class="route-stop">
-        <div class="route-left"><div class="r-dot" style="background:#D97706"></div><div class="r-line"></div></div>
-        <div class="route-content">
-          <div class="route-city">Gyeongju</div>
-          <div class="route-days">Jours 6–7 · 2 nuits</div>
-          <div class="route-desc">Tumuli Park, Bulguksa, Cheomseongdae, vélo</div>
-          <span class="kt-badge">🚌 Bus express · 1h30</span>
-        </div>
-      </div>
-
-      <div class="route-stop">
-        <div class="route-left"><div class="r-dot" style="background:#DC2626"></div><div class="r-line"></div></div>
-        <div class="route-content">
-          <div class="route-city">Busan</div>
-          <div class="route-days">Jours 8–9 · 2 nuits</div>
-          <div class="route-desc">Gamcheon, Jagalchi, Haeundae, Haedong Yonggungsa</div>
-          <span class="kt-badge">🚅 KTX Gyeongju → Busan · 30 min</span>
-        </div>
-      </div>
-
-      <div class="route-stop">
-        <div class="route-left"><div class="r-dot" style="background:#059669"></div><div class="r-line"></div></div>
-        <div class="route-content">
-          <div class="route-city">Yeosu</div>
-          <div class="route-days">Jours 10–11 · 2 nuits</div>
-          <div class="route-desc">Baie de Hanryeo, île Odongdo, câble car maritime</div>
-          <span class="kt-badge">🚅 Train Busan → Yeosu · 1h45</span>
-        </div>
-      </div>
-
-      <div class="route-stop">
-        <div class="route-left"><div class="r-dot" style="background:#78716C"></div><div class="r-line"></div></div>
-        <div class="route-content">
-          <div class="route-city">Andong</div>
-          <div class="route-days">Jours 12–13 · 2 nuits</div>
-          <div class="route-desc">Village Hahoe (UNESCO), masques traditionnels, jjimdak</div>
-          <span class="kt-badge">🚌 Bus Yeosu → Andong · ~3h</span>
-        </div>
-      </div>
-
-      <div class="route-stop">
-        <div class="route-left"><div class="r-dot" style="background:#2563EB"></div></div>
-        <div class="route-content">
-          <div class="route-city">Séoul</div>
-          <div class="route-days">Jour 14 · dernière nuit</div>
-          <div class="route-desc">Shopping Myeongdong, souvenirs, vol retour</div>
-          <span class="kt-badge">🚅 KTX Andong → Séoul · 2h</span>
-        </div>
-      </div>
-
+      <div class="route-stop"><div class="route-left"><div class="r-dot" style="background:#2563EB"></div><div class="r-line"></div></div><div class="route-content"><div class="route-city">Séoul</div><div class="route-days">Jours 1–3 · 3 nuits</div><div class="route-desc">Arrivée, Gyeongbokgung, Bukchon, Hongdae, Insadong</div></div></div>
+      <div class="route-stop"><div class="route-left"><div class="r-dot" style="background:#D97706"></div><div class="r-line"></div></div><div class="route-content"><div class="route-city">Jeonju</div><div class="route-days">Jours 4–5 · 2 nuits</div><div class="route-desc">Village hanok, bibimbap, makgeolli, artisanat</div><span class="kt-badge">🚅 KTX Séoul → Jeonju · 2h</span></div></div>
+      <div class="route-stop"><div class="route-left"><div class="r-dot" style="background:#D97706"></div><div class="r-line"></div></div><div class="route-content"><div class="route-city">Gyeongju</div><div class="route-days">Jours 6–7 · 2 nuits</div><div class="route-desc">Tumuli Park, Bulguksa, Cheomseongdae, vélo</div><span class="kt-badge">🚌 Bus express · 1h30</span></div></div>
+      <div class="route-stop"><div class="route-left"><div class="r-dot" style="background:#DC2626"></div><div class="r-line"></div></div><div class="route-content"><div class="route-city">Busan</div><div class="route-days">Jours 8–9 · 2 nuits</div><div class="route-desc">Gamcheon, Jagalchi, Haeundae, Haedong Yonggungsa</div><span class="kt-badge">🚅 KTX Gyeongju → Busan · 30 min</span></div></div>
+      <div class="route-stop"><div class="route-left"><div class="r-dot" style="background:#059669"></div><div class="r-line"></div></div><div class="route-content"><div class="route-city">Yeosu</div><div class="route-days">Jours 10–11 · 2 nuits</div><div class="route-desc">Baie de Hanryeo, île Odongdo, câble car maritime</div><span class="kt-badge">🚅 Train Busan → Yeosu · 1h45</span></div></div>
+      <div class="route-stop"><div class="route-left"><div class="r-dot" style="background:#78716C"></div><div class="r-line"></div></div><div class="route-content"><div class="route-city">Andong</div><div class="route-days">Jours 12–13 · 2 nuits</div><div class="route-desc">Village Hahoe (UNESCO), masques traditionnels, jjimdak</div><span class="kt-badge">🚌 Bus Yeosu → Andong · ~3h</span></div></div>
+      <div class="route-stop"><div class="route-left"><div class="r-dot" style="background:#2563EB"></div></div><div class="route-content"><div class="route-city">Séoul</div><div class="route-days">Jour 14 · dernière nuit</div><div class="route-desc">Shopping Myeongdong, souvenirs, vol retour</div><span class="kt-badge">🚅 KTX Andong → Séoul · 2h</span></div></div>
     </div>
   </div>
 
   <!-- DAYS -->
   <div id="days" class="section">
-
     <div class="day-card" onclick="toggle(this)">
-      <div class="day-header">
-        <span class="d-num blue">15–17 mai</span>
-        <span class="d-title">Séoul — prise de contact</span>
-        <span class="d-tag">Ville</span>
-        <span class="chevron">▼</span>
-      </div>
+      <div class="day-header"><span class="d-num blue">15–17 mai</span><span class="d-title">Séoul — prise de contact</span><span class="d-tag">Ville</span><span class="chevron">▼</span></div>
       <div class="day-body">
-        <div class="activity"><div class="act-icon">🏯</div><div><div class="act-name">Gyeongbokgung + Bukchon</div><div class="act-desc">Palais principal de la dynastie Joseon, puis balade dans le quartier hanok au lever du soleil pour éviter la foule.</div></div></div>
-        <div class="activity"><div class="act-icon">🛖</div><div><div class="act-name">Insadong &amp; Ikseon-dong</div><div class="act-desc">Ruelles rénovées avec galeries, cafés originaux et boutiques d'artisanat — plus authentique que Myeongdong.</div></div></div>
-        <div class="activity"><div class="act-icon">🎵</div><div><div class="act-name">Marché Gwangjang + soirée Hongdae</div><div class="act-desc">Bindaetteok et mayak gimbap au marché, puis quartier universitaire vivant avec live music dans les rues.</div></div></div>
+        <div class="activity"><div class="act-icon">🏯</div><div><div class="act-name">Gyeongbokgung + Bukchon</div><div class="act-desc">Palais principal de la dynastie Joseon, puis balade dans le quartier hanok au lever du soleil.</div></div></div>
+        <div class="activity"><div class="act-icon">🛖</div><div><div class="act-name">Insadong & Ikseon-dong</div><div class="act-desc">Ruelles rénovées avec galeries, cafés originaux et boutiques d'artisanat.</div></div></div>
+        <div class="activity"><div class="act-icon">🎵</div><div><div class="act-name">Marché Gwangjang + soirée Hongdae</div><div class="act-desc">Bindaetteok et mayak gimbap au marché, puis quartier universitaire avec live music.</div></div></div>
         <div class="tip">💡 <strong>Bon plan :</strong> Acheter la T-money card à l'aéroport — valable métro, bus, KTX dans tout le pays.</div>
       </div>
     </div>
-
     <div class="day-card" onclick="toggle(this)">
-      <div class="day-header">
-        <span class="d-num amber">18–19 mai</span>
-        <span class="d-title">Jeonju — capitale de la gastronomie</span>
-        <span class="d-tag">Patrimoine</span>
-        <span class="chevron">▼</span>
-      </div>
+      <div class="day-header"><span class="d-num amber">18–19 mai</span><span class="d-title">Jeonju — capitale de la gastronomie</span><span class="d-tag">Patrimoine</span><span class="chevron">▼</span></div>
       <div class="day-body">
         <div class="transport-row">🚅 KTX Séoul → Jeonju · ~2h · ~20 000 KRW/pers</div>
         <div class="activity"><div class="act-icon">🍚</div><div><div class="act-name">Bibimbap de Jeonju</div><div class="act-desc">Servi dans un bol en cuivre avec du riz cuit dans du bouillon de bœuf. Le meilleur du pays.</div></div></div>
-        <div class="activity"><div class="act-icon">🏘️</div><div><div class="act-name">Jeonju Hanok Village</div><div class="act-desc">700 maisons traditionnelles encore habitées. Louer un hanbok pour se balader dans les ruelles.</div></div></div>
-        <div class="activity"><div class="act-icon">🍶</div><div><div class="act-name">Makgeolli &amp; street food</div><div class="act-desc">Le vin de riz trouble local est servi avec plusieurs petits plats gratuits. Atelier papier hanji le matin.</div></div></div>
-        <div class="tip">💡 <strong>Bon plan :</strong> Dormir dans un guesthouse hanok — futons sur tatami, cour intérieure, expérience unique.</div>
+        <div class="activity"><div class="act-icon">🏘️</div><div><div class="act-name">Jeonju Hanok Village</div><div class="act-desc">700 maisons traditionnelles encore habitées. Louer un hanbok pour se balader.</div></div></div>
+        <div class="activity"><div class="act-icon">🍶</div><div><div class="act-name">Makgeolli & street food</div><div class="act-desc">Atelier papier hanji le matin. Makgeolli servi avec petits plats gratuits le soir.</div></div></div>
+        <div class="tip">💡 <strong>Bon plan :</strong> Dormir dans un guesthouse hanok — futons sur tatami, cour intérieure.</div>
       </div>
     </div>
-
     <div class="day-card" onclick="toggle(this)">
-      <div class="day-header">
-        <span class="d-num amber">20–21 mai</span>
-        <span class="d-title">Gyeongju — ville musée</span>
-        <span class="d-tag">Histoire</span>
-        <span class="chevron">▼</span>
-      </div>
+      <div class="day-header"><span class="d-num amber">20–21 mai</span><span class="d-title">Gyeongju — ville musée</span><span class="d-tag">Histoire</span><span class="chevron">▼</span></div>
       <div class="day-body">
         <div class="transport-row">🚌 Bus express Jeonju → Gyeongju · ~1h30 · ~15 000 KRW</div>
-        <div class="activity"><div class="act-icon">⛩️</div><div><div class="act-name">Bulguksa &amp; Seokguram</div><div class="act-desc">Temple bouddhiste du 8e siècle. La grotte Seokguram abrite un Bouddha de granit saisissant face à la mer.</div></div></div>
+        <div class="activity"><div class="act-icon">⛩️</div><div><div class="act-name">Bulguksa & Seokguram</div><div class="act-desc">Temple bouddhiste du 8e siècle. Grotte Seokguram avec Bouddha de granit face à la mer.</div></div></div>
         <div class="activity"><div class="act-icon">🚲</div><div><div class="act-name">Vélo dans Tumuli Park</div><div class="act-desc">Tombeaux royaux Silla en pleine ville — paysage surréaliste. Location vélo sur place.</div></div></div>
-        <div class="activity"><div class="act-icon">🌙</div><div><div class="act-name">Cheomseongdae + Anapji Pond</div><div class="act-desc">L'observatoire le plus ancien d'Asie, magnifique de nuit. Le lac Anapji se reflète parfaitement en soirée.</div></div></div>
+        <div class="activity"><div class="act-icon">🌙</div><div><div class="act-name">Cheomseongdae + Anapji Pond</div><div class="act-desc">L'observatoire le plus ancien d'Asie. Le lac Anapji se reflète parfaitement en soirée.</div></div></div>
       </div>
     </div>
-
     <div class="day-card" onclick="toggle(this)">
-      <div class="day-header">
-        <span class="d-num red">22–23 mai</span>
-        <span class="d-title">Busan — mer &amp; énergie</span>
-        <span class="d-tag">Côte</span>
-        <span class="chevron">▼</span>
-      </div>
+      <div class="day-header"><span class="d-num red">22–23 mai</span><span class="d-title">Busan — mer & énergie</span><span class="d-tag">Côte</span><span class="chevron">▼</span></div>
       <div class="day-body">
         <div class="transport-row">🚅 KTX Gyeongju → Busan · 30 min · ~10 000 KRW</div>
-        <div class="activity"><div class="act-icon">🎨</div><div><div class="act-name">Village Gamcheon</div><div class="act-desc">Le "Machu Picchu coréen" — maisons colorées en escalier sur une colline. Fresques murales, vue sur le port.</div></div></div>
-        <div class="activity"><div class="act-icon">🐟</div><div><div class="act-name">Marché Jagalchi</div><div class="act-desc">Le plus grand marché aux poissons de Corée. Choisir son poisson vivant et le faire préparer au restaurant à l'étage.</div></div></div>
-        <div class="activity"><div class="act-icon">🌊</div><div><div class="act-name">Haedong Yonggungsa + Gwangalli</div><div class="act-desc">Temple bouddhiste sur les falaises face à la mer. Soirée plage Gwangalli avec vue sur le pont illuminé.</div></div></div>
+        <div class="activity"><div class="act-icon">🎨</div><div><div class="act-name">Village Gamcheon</div><div class="act-desc">Maisons colorées en escalier sur une colline. Fresques murales, vue sur le port.</div></div></div>
+        <div class="activity"><div class="act-icon">🐟</div><div><div class="act-name">Marché Jagalchi</div><div class="act-desc">Plus grand marché aux poissons de Corée. Choisir son poisson vivant et le faire préparer à l'étage.</div></div></div>
+        <div class="activity"><div class="act-icon">🌊</div><div><div class="act-name">Haedong Yonggungsa + Gwangalli</div><div class="act-desc">Temple sur les falaises face à la mer. Soirée plage Gwangalli avec vue sur le pont illuminé.</div></div></div>
         <div class="tip">💡 <strong>Bon plan :</strong> Gwangalli le soir est moins bondé que Haeundae et bien plus photogénique.</div>
       </div>
     </div>
-
     <div class="day-card" onclick="toggle(this)">
-      <div class="day-header">
-        <span class="d-num teal">24–25 mai</span>
-        <span class="d-title">Yeosu — baie et îles</span>
-        <span class="d-tag">Nature</span>
-        <span class="chevron">▼</span>
-      </div>
+      <div class="day-header"><span class="d-num teal">24–25 mai</span><span class="d-title">Yeosu — baie et îles</span><span class="d-tag">Nature</span><span class="chevron">▼</span></div>
       <div class="day-body">
         <div class="transport-row">🚅 Train Busan → Yeosu · 1h45 · ~25 000 KRW</div>
-        <div class="activity"><div class="act-icon">🚡</div><div><div class="act-name">Ocean Rail Bike &amp; câble car maritime</div><div class="act-desc">Vélorail suspendu au-dessus de la mer, puis téléphérique pour l'île Dolsan. Vue à 360° incroyable. Réserver à l'avance !</div></div></div>
-        <div class="activity"><div class="act-icon">🏝️</div><div><div class="act-name">Île Odongdo</div><div class="act-desc">Accessible à pied par une digue, couverte de camélias et bambous. Phare avec vue sur la baie de Hanryeo.</div></div></div>
+        <div class="activity"><div class="act-icon">🚡</div><div><div class="act-name">Ocean Rail Bike & câble car maritime</div><div class="act-desc">Vélorail suspendu au-dessus de la mer, puis téléphérique pour l'île Dolsan. Réserver à l'avance !</div></div></div>
+        <div class="activity"><div class="act-icon">🏝️</div><div><div class="act-name">Île Odongdo</div><div class="act-desc">Accessible à pied par une digue. Phare avec vue sur la baie de Hanryeo.</div></div></div>
         <div class="activity"><div class="act-icon">🦐</div><div><div class="act-name">Gastronomie maritime</div><div class="act-desc">Huîtres grillées, pieuvre fraîche, gejang (crabe cru mariné). Dîner au port de Jinnamgwan.</div></div></div>
         <div class="tip">💡 <strong>Dimanche 25 mai :</strong> Port très animé, bonne ambiance locale avec les familles coréennes.</div>
       </div>
     </div>
-
     <div class="day-card" onclick="toggle(this)">
-      <div class="day-header">
-        <span class="d-num gray">26–27 mai</span>
-        <span class="d-title">Andong — le cœur confucéen</span>
-        <span class="d-tag">UNESCO</span>
-        <span class="chevron">▼</span>
-      </div>
+      <div class="day-header"><span class="d-num gray">26–27 mai</span><span class="d-title">Andong — le cœur confucéen</span><span class="d-tag">UNESCO</span><span class="chevron">▼</span></div>
       <div class="day-body">
         <div class="transport-row">🚌 Bus Yeosu → Andong · ~3h · ~20 000 KRW</div>
-        <div class="activity"><div class="act-icon">🎭</div><div><div class="act-name">Village Hahoe (UNESCO)</div><div class="act-desc">Village
- de clan entièrement préservé depuis le 14e siècle, au bord d'une 
-rivière. L'une des expériences les plus authentiques de Corée.</div></div></div>
-        <div class="activity"><div class="act-icon">🎪</div><div><div class="act-name">Spectacle de masques Hahoe</div><div class="act-desc">Représentation des masques en bois byeolsingut — satire sociale centenaire, très vivante et visuelle.</div></div></div>
-        <div class="activity"><div class="act-icon">🍗</div><div><div class="act-name">Jjimdak + Dosan Seowon</div><div class="act-desc">Poulet braisé épicé né ici. Académie confucéenne Dosan Seowon au bord de la rivière pour le lendemain.</div></div></div>
-        <div class="tip">💡 <strong>Bon plan :</strong> Visiter Hahoe tôt le matin du 27 mai — avant l'arrivée des groupes scolaires.</div>
+        <div class="activity"><div class="act-icon">🎭</div><div><div class="act-name">Village Hahoe (UNESCO)</div><div class="act-desc">Village de clan préservé depuis le 14e siècle au bord d'une rivière.</div></div></div>
+        <div class="activity"><div class="act-icon">🎪</div><div><div class="act-name">Spectacle de masques Hahoe</div><div class="act-desc">Représentation des masques en bois byeolsingut — satire sociale centenaire très vivante.</div></div></div>
+        <div class="activity"><div class="act-icon">🍗</div><div><div class="act-name">Jjimdak + Dosan Seowon</div><div class="act-desc">Poulet braisé épicé né ici. Académie confucéenne Dosan Seowon au bord de la rivière.</div></div></div>
+        <div class="tip">💡 <strong>Bon plan :</strong> Visiter Hahoe tôt le matin avant l'arrivée des groupes scolaires.</div>
+      </div>
+    </div>
+    <div class="day-card" onclick="toggle(this)">
+      <div class="day-header"><span class="d-num blue">28–29 mai</span><span class="d-title">Séoul — shopping & départ</span><span class="d-tag">Fin</span><span class="chevron">▼</span></div>
+      <div class="day-body">
+        <div class="transport-row">🚅 KTX Andong → Séoul · ~2h · ~30 000 KRW</div>
+        <div class="activity"><div class="act-icon">🛍️</div><div><div class="act-name">Myeongdong & Namdaemun</div><div class="act-desc">K-beauty, gochujang, thé vert, dolsot. Namdaemun pour les prix moins touristiques.</div></div></div>
+        <div class="activity"><div class="act-icon">🍖</div><div><div class="act-name">Dîner samgyeopsal d'adieu</div><div class="act-desc">BBQ coréen de porc à table — rituel incontournable pour finir le voyage en beauté.</div></div></div>
+        <div class="activity"><div class="act-icon">✈️</div><div><div class="act-name">Aéroport Incheon (29 mai)</div><div class="act-desc">Navette AREX depuis Seoul Station en 43 min. City check-in possible à la gare. Prévoir 3h avant le vol.</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOGEMENTS -->
+  <div id="logements" class="section">
+    <p class="section-label">3 logements réservés · 759 € au total</p>
+
+    <!-- Appart 1 : Vue sur l'océan, Jeju -->
+    <div class="bnb-card">
+      <div class="slider" id="s1">
+        <div class="slider-track" id="t1">
+          <img src="https://images.weserv.nl/?url=a0.muscache.com/im/pictures/hosting/Hosting-1142150514599133947/original/96743d90-3b1c-437d-9455-497d26255ec1.jpeg?im_w=1200" alt="Vue sur l'océan 1" loading="lazy">
+          <img src="https://images.weserv.nl/?url=a0.muscache.com/im/pictures/hosting/Hosting-1142150514599133947/original/8cf0ce92-acd9-4d9d-9461-79d215be2477.jpeg?im_w=720" alt="Vue sur l'océan 2" loading="lazy">
+          <img src="https://images.weserv.nl/?url=a0.muscache.com/im/pictures/hosting/Hosting-1142150514599133947/original/8c3567c6-5cc8-493f-b494-1c63c6e58b49.jpeg?im_w=720" alt="Vue sur l'océan 3" loading="lazy">
+        </div>
+        <button class="slider-btn prev" onclick="slide('t1','d1',-1)">‹</button>
+        <button class="slider-btn next" onclick="slide('t1','d1',1)">›</button>
+        <div class="slider-dots" id="d1">
+          <div class="slider-dot active"></div>
+          <div class="slider-dot"></div>
+          <div class="slider-dot"></div>
+        </div>
+      </div>
+      <div class="bnb-body">
+        <div class="bnb-top">
+          <div class="bnb-name">Vue sur l'océan — chambre milpaso C</div>
+          <div class="bnb-price"><div class="bnb-price-val">185 €</div><div class="bnb-price-lbl">au total</div></div>
+        </div>
+        <div class="bnb-location">📍 Jeju, Corée du Sud &nbsp;·&nbsp; Logement entier : hébergement</div>
+        <div class="bnb-pills">
+          <span class="pill pill-coup">❤️ Coup de cœur voyageurs</span>
+          <span class="pill pill-star">⭐ 4,88 · 48 avis</span>
+          <span class="pill pill-rare">🌿 Perle rare</span>
+          <span class="pill pill-gray">2 voy. · 1 chambre · 1 lit</span>
+        </div>
+        <div class="bnb-dates">
+          <div class="bnb-date-col"><div class="bnb-date-label">Arrivée</div><div class="bnb-date-val">25 mai 2026</div></div>
+          <div class="bnb-date-col"><div class="bnb-date-label">Départ</div><div class="bnb-date-val">27 mai 2026</div></div>
+        </div>
+        <a class="bnb-btn" href="https://www.airbnb.fr/rooms/1142150514599133947?adults=2&check_in=2026-05-25&check_out=2026-05-27" target="_blank">Voir sur Airbnb →</a>
       </div>
     </div>
 
-    <div class="day-card" onclick="toggle(this)">
-      <div class="day-header">
-        <span class="d-num blue">28–29 mai</span>
-        <span class="d-title">Séoul — shopping &amp; départ</span>
-        <span class="d-tag">Fin</span>
-        <span class="chevron">▼</span>
+    <!-- Appart 2 : Maison Gongbakgaeden -->
+    <div class="bnb-card">
+      <div class="slider" id="s2">
+        <div class="slider-track" id="t2">
+          <img src="https://images.weserv.nl/?url=a0.muscache.com/im/pictures/hosting/Hosting-1408991859259266667/original/7639540f-2c9f-4e58-895a-e971c81c4b5b.jpeg?im_w=1200" alt="Gongbakgaeden 1" loading="lazy">
+          <img src="https://images.weserv.nl/?url=a0.muscache.com/im/pictures/hosting/Hosting-1410466128970492636/original/2011b44b-9d92-4216-98f3-aa391690f6c8.jpeg?im_w=720" alt="Gongbakgaeden 2" loading="lazy">
+          <img src="https://images.weserv.nl/?url=a0.muscache.com/im/pictures/hosting/Hosting-1408991859259266667/original/0b9ef981-16eb-49f5-b0dd-f021bbfec841.jpeg?im_w=720" alt="Gongbakgaeden 3" loading="lazy">
+        </div>
+        <button class="slider-btn prev" onclick="slide('t2','d2',-1)">‹</button>
+        <button class="slider-btn next" onclick="slide('t2','d2',1)">›</button>
+        <div class="slider-dots" id="d2">
+          <div class="slider-dot active"></div>
+          <div class="slider-dot"></div>
+          <div class="slider-dot"></div>
+        </div>
       </div>
-      <div class="day-body">
-        <div class="transport-row">🚅 KTX Andong → Séoul · ~2h · ~30 000 KRW</div>
-        <div class="activity"><div class="act-icon">🛍️</div><div><div class="act-name">Myeongdong &amp; Namdaemun</div><div class="act-desc">K-beauty, gochujang, thé vert, dolsot. Namdaemun pour les prix moins touristiques que Myeongdong.</div></div></div>
-        <div class="activity"><div class="act-icon">🍖</div><div><div class="act-name">Dîner samgyeopsal d'adieu</div><div class="act-desc">BBQ coréen de porc à table — le rituel incontournable pour finir le voyage en beauté.</div></div></div>
-        <div class="activity"><div class="act-icon">✈️</div><div><div class="act-name">Aéroport Incheon (29 mai)</div><div class="act-desc">Navette AREX depuis Seoul Station en 43 min. City check-in possible à la gare. Prévoir 3h avant le vol.</div></div></div>
+      <div class="bnb-body">
+        <div class="bnb-top">
+          <div class="bnb-name">Maison à l'ouest de Gongbakgaeden</div>
+          <div class="bnb-price"><div class="bnb-price-val">441 €</div><div class="bnb-price-lbl">au total</div></div>
+        </div>
+        <div class="bnb-location">📍 Goseong-gun, Corée du Sud &nbsp;·&nbsp; Logement entier : cottage</div>
+        <div class="bnb-pills">
+          <span class="pill pill-coup">❤️ Coup de cœur voyageurs</span>
+          <span class="pill pill-star">⭐ 5,0 · 64 avis</span>
+          <span class="pill pill-rare">🌿 Perle rare</span>
+          <span class="pill pill-gray">4 voy. · 2 chambres · 2 lits</span>
+        </div>
+        <div class="bnb-dates">
+          <div class="bnb-date-col"><div class="bnb-date-label">Arrivée</div><div class="bnb-date-val">21 mai 2026</div></div>
+          <div class="bnb-date-col"><div class="bnb-date-label">Départ</div><div class="bnb-date-val">24 mai 2026</div></div>
+        </div>
+        <a class="bnb-btn" href="https://www.airbnb.fr/rooms/1410466128970492636?adults=2&check_in=2026-05-21&check_out=2026-05-24" target="_blank">Voir sur Airbnb →</a>
+      </div>
+    </div>
+
+    <!-- Appart 3 : Daegu -->
+    <div class="bnb-card">
+      <div class="slider" id="s3">
+        <div class="slider-track" id="t3">
+          <img src="https://images.weserv.nl/?url=a0.muscache.com/im/pictures/hosting/Hosting-1601461550615937114/original/b2314618-ad74-45fe-b2cb-bb76d56a0886.jpeg?im_w=1200" alt="Daegu 1" loading="lazy">
+          <img src="https://images.weserv.nl/?url=a0.muscache.com/im/pictures/hosting/Hosting-1601461550615937114/original/8e55dec0-f4e3-430b-9505-3a041de3a22f.jpeg?im_w=720" alt="Daegu 2" loading="lazy">
+        </div>
+        <button class="slider-btn prev" onclick="slide('t3','d3',-1)">‹</button>
+        <button class="slider-btn next" onclick="slide('t3','d3',1)">›</button>
+        <div class="slider-dots" id="d3">
+          <div class="slider-dot active"></div>
+          <div class="slider-dot"></div>
+        </div>
+      </div>
+      <div class="bnb-body">
+        <div class="bnb-top">
+          <div class="bnb-name">Appartement cosy — Daegu, gare Dongdaegu</div>
+          <div class="bnb-price"><div class="bnb-price-val">133 €</div><div class="bnb-price-lbl">au total</div></div>
+        </div>
+        <div class="bnb-location">📍 Daegu, Corée du Sud &nbsp;·&nbsp; Logement entier : appartement</div>
+        <div class="bnb-pills">
+          <span class="pill pill-coup">❤️ Coup de cœur voyageurs</span>
+          <span class="pill pill-star">⭐ 5,0 · 8 avis</span>
+          <span class="pill pill-rare">🌿 Perle rare</span>
+          <span class="pill pill-gray">2 voy. · 1 chambre · 1 lit</span>
+          <span class="pill pill-gray">📺 Netflix</span>
+        </div>
+        <div class="bnb-dates">
+          <div class="bnb-date-col"><div class="bnb-date-label">Arrivée</div><div class="bnb-date-val">21 mai 2026</div></div>
+          <div class="bnb-date-col"><div class="bnb-date-label">Départ</div><div class="bnb-date-val">24 mai 2026</div></div>
+        </div>
+        <a class="bnb-btn" href="https://www.airbnb.fr/rooms/1601461550615937114?adults=2&check_in=2026-05-21&check_out=2026-05-24" target="_blank">Voir sur Airbnb →</a>
       </div>
     </div>
 
@@ -467,61 +333,64 @@ rivière. L'une des expériences les plus authentiques de Corée.</div></div></d
 
   <!-- TIPS -->
   <div id="tips" class="section">
-
     <div class="day-card" onclick="toggle(this)">
       <div class="day-header"><span class="d-title">🚅 Transports</span><span class="chevron">▼</span></div>
       <div class="day-body">
         <div class="activity"><div class="act-icon">💳</div><div><div class="act-name">T-money card</div><div class="act-desc">Une carte rechargeable pour le métro, bus, KTX et taxis. Achetable dans tout convenience store (CU, GS25, 7-Eleven).</div></div></div>
         <div class="activity"><div class="act-icon">🎫</div><div><div class="act-name">Korail Pass</div><div class="act-desc">Pass KTX pour étrangers — rentable à partir de 4 trajets longue distance. Achetable sur korail.com avant le départ.</div></div></div>
-        <div class="activity"><div class="act-icon">📍</div><div><div class="act-name">Naver Maps — pas Google Maps</div><div class="act-desc">Google Maps est peu fiable en Corée. Naver Maps (disponible en anglais) est bien plus précis pour les transports en commun.</div></div></div>
+        <div class="activity"><div class="act-icon">📍</div><div><div class="act-name">Naver Maps — pas Google Maps</div><div class="act-desc">Google Maps est peu fiable en Corée. Naver Maps (en anglais) est bien plus précis pour les transports.</div></div></div>
       </div>
     </div>
-
     <div class="day-card" onclick="toggle(this)">
-      <div class="day-header"><span class="d-title">📶 Connectivité &amp; argent</span><span class="chevron">▼</span></div>
+      <div class="day-header"><span class="d-title">📶 Connectivité & argent</span><span class="chevron">▼</span></div>
       <div class="day-body">
-        <div class="activity"><div class="act-icon">📶</div><div><div class="act-name">eSIM</div><div class="act-desc">Précommander une eSIM data (KT, SK Telecom) avant le départ. La 5G couvre même les zones rurales et les tunnels.</div></div></div>
-        <div class="activity"><div class="act-icon">💵</div><div><div class="act-name">Cash KRW</div><div class="act-desc">Les marchés, stands de rue et petits restos n'acceptent que le cash. Retirer aux DAB de GS25 ou CU — moins de frais.</div></div></div>
+        <div class="activity"><div class="act-icon">📶</div><div><div class="act-name">eSIM</div><div class="act-desc">Précommander une eSIM data (KT, SK Telecom) avant le départ. La 5G couvre même les zones rurales.</div></div></div>
+        <div class="activity"><div class="act-icon">💵</div><div><div class="act-name">Cash KRW</div><div class="act-desc">Marchés et petits restos = cash uniquement. Retirer aux DAB de GS25 ou CU — moins de frais.</div></div></div>
         <div class="activity"><div class="act-icon">💳</div><div><div class="act-name">Carte sans frais</div><div class="act-desc">Revolut ou Wise pour payer sans frais de change partout où la CB est acceptée.</div></div></div>
       </div>
     </div>
-
     <div class="day-card" onclick="toggle(this)">
       <div class="day-header"><span class="d-title">📱 Apps indispensables</span><span class="chevron">▼</span></div>
       <div class="day-body">
         <div class="activity"><div class="act-icon">🗺️</div><div><div class="act-name">Naver Maps</div><div class="act-desc">Navigation, transports en commun, horaires de bus. Indispensable.</div></div></div>
         <div class="activity"><div class="act-icon">🚕</div><div><div class="act-name">KakaoTaxi</div><div class="act-desc">Commander un taxi sans parler coréen. Interface en anglais, paiement CB intégré.</div></div></div>
-        <div class="activity"><div class="act-icon">🌐</div><div><div class="act-name">Papago</div><div class="act-desc">Traduction par Naver — bien meilleur que Google Translate pour le coréen, même avec la caméra.</div></div></div>
-        <div class="activity"><div class="act-icon">🏨</div><div><div class="act-name">Yanolja / Yeogi Eottae</div><div class="act-desc">Apps coréennes de réservation — souvent moins chers que Booking.com pour les guesthouses et motels locaux.</div></div></div>
+        <div class="activity"><div class="act-icon">🌐</div><div><div class="act-name">Papago</div><div class="act-desc">Traduction Naver — bien meilleur que Google Translate pour le coréen, même avec la caméra.</div></div></div>
       </div>
     </div>
-
     <div class="day-card" onclick="toggle(this)">
       <div class="day-header"><span class="d-title">📋 Formalités</span><span class="chevron">▼</span></div>
       <div class="day-body">
         <div class="activity"><div class="act-icon">✅</div><div><div class="act-name">Pas de visa pour les Français</div><div class="act-desc">Exemption de visa jusqu'au 31 déc. 2026 pour les séjours touristiques de moins de 90 jours.</div></div></div>
         <div class="activity"><div class="act-icon">📄</div><div><div class="act-name">e-Arrival Card obligatoire</div><div class="act-desc">À remplir en ligne sur e-arrivalcard.go.kr dans les 72h avant l'arrivée. Gratuit, 5 minutes.</div></div></div>
-        <div class="activity"><div class="act-icon">🛂</div><div><div class="act-name">Passeport valide</div><div class="act-desc">Doit être valide pour toute la durée du séjour. Prévoir au moins 3 pages vierges pour les tampons.</div></div></div>
+        <div class="activity"><div class="act-icon">🛂</div><div><div class="act-name">Passeport valide</div><div class="act-desc">Doit être valide pour toute la durée du séjour. Prévoir au moins 3 pages vierges.</div></div></div>
       </div>
     </div>
-
   </div>
 
-  <footer>Babe's adventures · Vol03 - Mai 2026</footer>
-
+  <footer>Itinéraire généré avec Claude · Anthropic — Mai 2026</footer>
 </div>
 
 <script>
+  const sliderState = {};
+
+  function slide(trackId, dotsId, dir) {
+    if (!sliderState[trackId]) sliderState[trackId] = 0;
+    const track = document.getElementById(trackId);
+    const dots = document.getElementById(dotsId);
+    const count = track.children.length;
+    sliderState[trackId] = (sliderState[trackId] + dir + count) % count;
+    track.style.transform = 'translateX(-' + (sliderState[trackId] * 100) + '%)';
+    Array.from(dots.children).forEach((d, i) => d.classList.toggle('active', i === sliderState[trackId]));
+  }
+
   function showTab(id, btn) {
     document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
     document.getElementById(id).classList.add('active');
     btn.classList.add('active');
   }
-  function toggle(el) {
-    el.classList.toggle('open');
-  }
+
+  function toggle(el) { el.classList.toggle('open'); }
 </script>
-
-
-</body></html>
+</body>
+</html>
