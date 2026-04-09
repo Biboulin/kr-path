@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Itinéraire Corée du Sud 🇰🇷</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f7f6f3; color: #1a1a1a; min-height: 100vh; padding: 2rem 1rem; }
@@ -22,6 +23,23 @@
   .ov-card { background: #fff; border-radius: 10px; padding: 14px 10px; text-align: center; border: 1px solid #e8e6e3; }
   .ov-num { font-size: 22px; font-weight: 600; color: #1a1a1a; }
   .ov-label { font-size: 11px; color: #999; margin-top: 3px; text-transform: uppercase; letter-spacing: 0.04em; }
+
+  /* KPI bar */
+  .kpi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 1.25rem; }
+  @media (max-width: 480px) { .kpi-grid { grid-template-columns: repeat(1, 1fr); } }
+  .kpi-card { background: #fff; border: 1px solid #e8e6e3; border-radius: 12px; padding: 14px 16px; display: flex; align-items: center; gap: 12px; }
+  .kpi-icon { font-size: 22px; flex-shrink: 0; }
+  .kpi-val { font-size: 17px; font-weight: 700; color: #1a1a1a; line-height: 1.2; }
+  .kpi-lbl { font-size: 11px; color: #999; margin-top: 2px; }
+
+  /* Map */
+  .map-wrap { border-radius: 14px; overflow: hidden; border: 1px solid #e8e6e3; margin-bottom: 1.25rem; }
+  #trip-map { height: 320px; width: 100%; }
+  .leaflet-popup-content-wrapper { border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.15); }
+  .leaflet-popup-content { font-family: -apple-system, sans-serif; font-size: 13px; }
+  .map-city { font-weight: 700; font-size: 14px; color: #1a1a1a; }
+  .map-dates { font-size: 12px; color: #888; margin-top: 2px; }
+  .map-desc { font-size: 12px; color: #555; margin-top: 4px; }
   .intro-text { font-size: 14px; color: #555; line-height: 1.75; margin-bottom: 1.2rem; background: #fff; border-radius: 10px; padding: 1rem 1.25rem; border: 1px solid #e8e6e3; }
   .legend { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 1rem; }
   .leg-item { display: flex; align-items: center; gap: 7px; font-size: 13px; color: #666; }
@@ -106,7 +124,7 @@
 
   <header>
     <h1>🇰🇷 Corée du Sud — 15 au 29 mai</h1>
-    <p>2 personnes · 14 jours · Séoul → Jeonju → Gyeongju → Busan → Yeosu → Andong → Séoul</p>
+    <p>2 personnes · 15 mai (départ) → 29 mai (retour) · Séoul → Jeonju → Gyeongju → Busan → Yeosu → Andong → Séoul</p>
   </header>
 
   <div class="tabs">
@@ -119,57 +137,100 @@
 
   <!-- OVERVIEW -->
   <div id="overview" class="section active">
-    <div class="overview-grid">
-      <div class="ov-card"><div class="ov-num">14</div><div class="ov-label">Jours</div></div>
-      <div class="ov-card"><div class="ov-num">7</div><div class="ov-label">Villes</div></div>
-      <div class="ov-card"><div class="ov-num">~1 400</div><div class="ov-label">km</div></div>
-      <div class="ov-card"><div class="ov-num">KTX</div><div class="ov-label">Transport</div></div>
+
+    <!-- KPI cards -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-icon">🗓️</div>
+        <div>
+          <div class="kpi-val">13 nuits · 7 villes</div>
+          <div class="kpi-lbl">Arrivée 16 mai 18h30 · Départ 29 mai 23h30</div>
+        </div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon">🏠</div>
+        <div>
+          <div class="kpi-val">759 € logements</div>
+          <div class="kpi-lbl">3 Airbnb · tous Coup de cœur ❤️</div>
+        </div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon">✅</div>
+        <div>
+          <div class="kpi-val">Pas de visa</div>
+          <div class="kpi-lbl">e-Arrival Card suffisante · FR</div>
+        </div>
+      </div>
     </div>
+
+    <!-- Interactive map -->
+    <div class="map-wrap">
+      <div id="trip-map"></div>
+    </div>
+
     <div class="intro-text">Séoul juste le temps de s'acclimater, puis direction le sud. <strong>Jeonju</strong> pour la gastronomie et les hanok, <strong>Gyeongju</strong> l'ancienne capitale royale, <strong>Busan</strong> pour la mer, <strong>Yeosu</strong> pour les îles, et un détour par <strong>Andong</strong> et le village de Hahoe inscrit à l'UNESCO. Retour à Séoul pour la dernière nuit.</div>
-    <div class="legend">
-      <div class="leg-item"><div class="leg-dot" style="background:#2563EB"></div> Grandes villes</div>
-      <div class="leg-item"><div class="leg-dot" style="background:#059669"></div> Nature / côtes</div>
-      <div class="leg-item"><div class="leg-dot" style="background:#D97706"></div> Patrimoine</div>
-    </div>
   </div>
 
   <!-- ROUTE -->
   <div id="route" class="section">
     <p class="section-label">Trajet complet</p>
     <div class="route-wrap">
-      <div class="route-stop"><div class="route-left"><div class="r-dot" style="background:#2563EB"></div><div class="r-line"></div></div><div class="route-content"><div class="route-city">Séoul</div><div class="route-days">Jours 1–3 · 3 nuits</div><div class="route-desc">Arrivée, Gyeongbokgung, Bukchon, Hongdae, Insadong</div></div></div>
-      <div class="route-stop"><div class="route-left"><div class="r-dot" style="background:#D97706"></div><div class="r-line"></div></div><div class="route-content"><div class="route-city">Jeonju</div><div class="route-days">Jours 4–5 · 2 nuits</div><div class="route-desc">Village hanok, bibimbap, makgeolli, artisanat</div><span class="kt-badge">🚅 KTX Séoul → Jeonju · 2h</span></div></div>
-      <div class="route-stop"><div class="route-left"><div class="r-dot" style="background:#D97706"></div><div class="r-line"></div></div><div class="route-content"><div class="route-city">Gyeongju</div><div class="route-days">Jours 6–7 · 2 nuits</div><div class="route-desc">Tumuli Park, Bulguksa, Cheomseongdae, vélo</div><span class="kt-badge">🚌 Bus express · 1h30</span></div></div>
-      <div class="route-stop"><div class="route-left"><div class="r-dot" style="background:#DC2626"></div><div class="r-line"></div></div><div class="route-content"><div class="route-city">Busan</div><div class="route-days">Jours 8–9 · 2 nuits</div><div class="route-desc">Gamcheon, Jagalchi, Haeundae, Haedong Yonggungsa</div><span class="kt-badge">🚅 KTX Gyeongju → Busan · 30 min</span></div></div>
-      <div class="route-stop"><div class="route-left"><div class="r-dot" style="background:#059669"></div><div class="r-line"></div></div><div class="route-content"><div class="route-city">Yeosu</div><div class="route-days">Jours 10–11 · 2 nuits</div><div class="route-desc">Baie de Hanryeo, île Odongdo, câble car maritime</div><span class="kt-badge">🚅 Train Busan → Yeosu · 1h45</span></div></div>
-      <div class="route-stop"><div class="route-left"><div class="r-dot" style="background:#78716C"></div><div class="r-line"></div></div><div class="route-content"><div class="route-city">Andong</div><div class="route-days">Jours 12–13 · 2 nuits</div><div class="route-desc">Village Hahoe (UNESCO), masques traditionnels, jjimdak</div><span class="kt-badge">🚌 Bus Yeosu → Andong · ~3h</span></div></div>
-      <div class="route-stop"><div class="route-left"><div class="r-dot" style="background:#2563EB"></div></div><div class="route-content"><div class="route-city">Séoul</div><div class="route-days">Jour 14 · dernière nuit</div><div class="route-desc">Shopping Myeongdong, souvenirs, vol retour</div><span class="kt-badge">🚅 KTX Andong → Séoul · 2h</span></div></div>
+      <div class="route-stop"><div class="route-left"><div class="r-dot" style="background:#2563EB"></div><div class="r-line"></div></div><div class="route-content"><div class="route-city">Séoul</div><div class="route-days">16–18 mai · arrivée + 2 nuits</div><div class="route-desc">Atterrissage 18h30, Gyeongbokgung, Bukchon, Hongdae, Insadong</div></div></div>
+      <div class="route-stop"><div class="route-left"><div class="r-dot" style="background:#D97706"></div><div class="r-line"></div></div><div class="route-content"><div class="route-city">Jeonju</div><div class="route-days">19–20 mai · 2 nuits</div><div class="route-desc">Village hanok, bibimbap, makgeolli, artisanat</div><span class="kt-badge">🚅 KTX Séoul → Jeonju · 2h</span></div></div>
+      <div class="route-stop"><div class="route-left"><div class="r-dot" style="background:#D97706"></div><div class="r-line"></div></div><div class="route-content"><div class="route-city">Gyeongju</div><div class="route-days">21–22 mai · 2 nuits</div><div class="route-desc">Tumuli Park, Bulguksa, Cheomseongdae, vélo</div><span class="kt-badge">🚌 Bus express · 1h30</span></div></div>
+      <div class="route-stop"><div class="route-left"><div class="r-dot" style="background:#DC2626"></div><div class="r-line"></div></div><div class="route-content"><div class="route-city">Busan</div><div class="route-days">23–24 mai · 2 nuits</div><div class="route-desc">Gamcheon, Jagalchi, Haeundae, Haedong Yonggungsa</div><span class="kt-badge">🚅 KTX Gyeongju → Busan · 30 min</span></div></div>
+      <div class="route-stop"><div class="route-left"><div class="r-dot" style="background:#059669"></div><div class="r-line"></div></div><div class="route-content"><div class="route-city">Yeosu</div><div class="route-days">25–26 mai · 2 nuits</div><div class="route-desc">Baie de Hanryeo, île Odongdo, câble car maritime</div><span class="kt-badge">🚅 Train Busan → Yeosu · 1h45</span></div></div>
+      <div class="route-stop"><div class="route-left"><div class="r-dot" style="background:#78716C"></div><div class="r-line"></div></div><div class="route-content"><div class="route-city">Andong</div><div class="route-days">27–28 mai · 2 nuits</div><div class="route-desc">Village Hahoe (UNESCO), masques traditionnels, jjimdak</div><span class="kt-badge">🚌 Bus Yeosu → Andong · ~3h</span></div></div>
+      <div class="route-stop"><div class="route-left"><div class="r-dot" style="background:#2563EB"></div></div><div class="route-content"><div class="route-city">Séoul</div><div class="route-days">29 mai · vol 23h30</div><div class="route-desc">Shopping Myeongdong, dîner BBQ, vol retour 23h30</div><span class="kt-badge">🚅 KTX Andong → Séoul · 2h</span></div></div>
     </div>
   </div>
 
   <!-- DAYS -->
   <div id="days" class="section">
+
     <div class="day-card" onclick="toggle(this)">
-      <div class="day-header"><span class="d-num blue">15–17 mai</span><span class="d-title">Séoul — prise de contact</span><span class="d-tag">Ville</span><span class="chevron">▼</span></div>
+      <div class="day-header"><span class="d-num blue">16 mai</span><span class="d-title">Arrivée à Séoul · 18h30</span><span class="d-tag">Vol</span><span class="chevron">▼</span></div>
       <div class="day-body">
-        <div class="activity"><div class="act-icon">🏯</div><div><div class="act-name">Gyeongbokgung + Bukchon</div><div class="act-desc">Palais principal de la dynastie Joseon, puis balade dans le quartier hanok au lever du soleil.</div></div></div>
-        <div class="activity"><div class="act-icon">🛖</div><div><div class="act-name">Insadong & Ikseon-dong</div><div class="act-desc">Ruelles rénovées avec galeries, cafés originaux et boutiques d'artisanat.</div></div></div>
-        <div class="activity"><div class="act-icon">🎵</div><div><div class="act-name">Marché Gwangjang + soirée Hongdae</div><div class="act-desc">Bindaetteok et mayak gimbap au marché, puis quartier universitaire avec live music.</div></div></div>
-        <div class="tip">💡 <strong>Bon plan :</strong> Acheter la T-money card à l'aéroport — valable métro, bus, KTX dans tout le pays.</div>
+        <div class="activity"><div class="act-icon">✈️</div><div><div class="act-name">Atterrissage Incheon · 18h30</div><div class="act-desc">Prise de la T-money card à l'aéroport. Navette AREX → Seoul Station en 43 min.</div></div></div>
+        <div class="activity"><div class="act-icon">🏨</div><div><div class="act-name">Check-in & récupération</div><div class="act-desc">Décalage horaire +7h — ne pas forcer. Dîner léger dans un convenience store ou un resto de quartier.</div></div></div>
+        <div class="activity"><div class="act-icon">🌃</div><div><div class="act-name">Balade nocturne optionnelle</div><div class="act-desc">Si l'énergie le permet : Cheonggyecheon Stream à 10 min à pied du centre — promenade nocturne lumineuse et calme.</div></div></div>
+        <div class="tip">💡 <strong>Arrivée tardive :</strong> Les convenience stores CU/GS25 sont ouverts 24h/24 — parfaits pour le premier dîner sans prise de tête.</div>
       </div>
     </div>
+
     <div class="day-card" onclick="toggle(this)">
-      <div class="day-header"><span class="d-num amber">18–19 mai</span><span class="d-title">Jeonju — capitale de la gastronomie</span><span class="d-tag">Patrimoine</span><span class="chevron">▼</span></div>
+      <div class="day-header"><span class="d-num blue">17 mai</span><span class="d-title">Séoul — palais & vieille ville</span><span class="d-tag">Ville</span><span class="chevron">▼</span></div>
       <div class="day-body">
-        <div class="transport-row">🚅 KTX Séoul → Jeonju · ~2h · ~20 000 KRW/pers</div>
+        <div class="activity"><div class="act-icon">🏯</div><div><div class="act-name">Gyeongbokgung tôt le matin</div><div class="act-desc">Palais principal de la dynastie Joseon. Arriver à l'ouverture (9h) pour éviter la foule.</div></div></div>
+        <div class="activity"><div class="act-icon">🛖</div><div><div class="act-name">Bukchon Hanok Village + Insadong</div><div class="act-desc">Ruelles de maisons traditionnelles, puis boutiques d'artisanat et galeries d'Insadong.</div></div></div>
+        <div class="activity"><div class="act-icon">🍜</div><div><div class="act-name">Ikseon-dong pour le dîner</div><div class="act-desc">Ruelles rénovées avec cafés coréens originaux, restaurants de soupe tteokbokki et bars à makgeolli.</div></div></div>
+        <div class="tip">💡 <strong>Samedi :</strong> Bukchon est plus chargé le week-end — viser avant 10h pour les meilleurs angles photo.</div>
+      </div>
+    </div>
+
+    <div class="day-card" onclick="toggle(this)">
+      <div class="day-header"><span class="d-num blue">18 mai</span><span class="d-title">Séoul — montagne & Hongdae</span><span class="d-tag">Ville</span><span class="chevron">▼</span></div>
+      <div class="day-body">
+        <div class="activity"><div class="act-icon">⛰️</div><div><div class="act-name">Randonnée Inwangsan ou Namsan</div><div class="act-desc">Vue panoramique sur Séoul depuis les hauteurs. Namsan Tower accessible à pied ou en téléphérique.</div></div></div>
+        <div class="activity"><div class="act-icon">🥘</div><div><div class="act-name">Marché Gwangjang</div><div class="act-desc">Le plus vieux marché couvert de Corée. Bindaetteok (galettes de haricots mungo) et mayak gimbap incontournables.</div></div></div>
+        <div class="activity"><div class="act-icon">🎵</div><div><div class="act-name">Soirée Hongdae</div><div class="act-desc">Quartier universitaire vivant — live music dans les rues, bars à craft beer, ambiance jeune et alternative.</div></div></div>
+        <div class="tip">💡 <strong>Dimanche soir :</strong> Hongdae est animé toute la semaine mais le dimanche c'est plus calme côté bars — parfait après une semaine chargée.</div>
+      </div>
+    </div>
+
+    <div class="day-card" onclick="toggle(this)">
+      <div class="day-header"><span class="d-num amber">19–20 mai</span><span class="d-title">Jeonju — capitale de la gastronomie</span><span class="d-tag">Patrimoine</span><span class="chevron">▼</span></div>
+      <div class="day-body">
+        <div class="transport-row">🚅 KTX Séoul → Jeonju · ~2h · ~20 000 KRW/pers · départ matin</div>
         <div class="activity"><div class="act-icon">🍚</div><div><div class="act-name">Bibimbap de Jeonju</div><div class="act-desc">Servi dans un bol en cuivre avec du riz cuit dans du bouillon de bœuf. Le meilleur du pays.</div></div></div>
-        <div class="activity"><div class="act-icon">🏘️</div><div><div class="act-name">Jeonju Hanok Village</div><div class="act-desc">700 maisons traditionnelles encore habitées. Louer un hanbok pour se balader.</div></div></div>
-        <div class="activity"><div class="act-icon">🍶</div><div><div class="act-name">Makgeolli & street food</div><div class="act-desc">Atelier papier hanji le matin. Makgeolli servi avec petits plats gratuits le soir.</div></div></div>
-        <div class="tip">💡 <strong>Bon plan :</strong> Dormir dans un guesthouse hanok — futons sur tatami, cour intérieure.</div>
+        <div class="activity"><div class="act-icon">🏘️</div><div><div class="act-name">Jeonju Hanok Village</div><div class="act-desc">700 maisons traditionnelles encore habitées. Louer un hanbok pour se balader dans les ruelles.</div></div></div>
+        <div class="activity"><div class="act-icon">🍶</div><div><div class="act-name">Atelier hanji + makgeolli</div><div class="act-desc">Atelier papier hanji le matin du 20. Makgeolli servi avec plusieurs petits plats gratuits le soir.</div></div></div>
+        <div class="tip">💡 <strong>Bon plan :</strong> Dormir dans un guesthouse hanok — futons sur tatami, cour intérieure, expérience unique.</div>
       </div>
     </div>
+
     <div class="day-card" onclick="toggle(this)">
-      <div class="day-header"><span class="d-num amber">20–21 mai</span><span class="d-title">Gyeongju — ville musée</span><span class="d-tag">Histoire</span><span class="chevron">▼</span></div>
+      <div class="day-header"><span class="d-num amber">21–22 mai</span><span class="d-title">Gyeongju — ville musée</span><span class="d-tag">Histoire</span><span class="chevron">▼</span></div>
       <div class="day-body">
         <div class="transport-row">🚌 Bus express Jeonju → Gyeongju · ~1h30 · ~15 000 KRW</div>
         <div class="activity"><div class="act-icon">⛩️</div><div><div class="act-name">Bulguksa & Seokguram</div><div class="act-desc">Temple bouddhiste du 8e siècle. Grotte Seokguram avec Bouddha de granit face à la mer.</div></div></div>
@@ -177,8 +238,9 @@
         <div class="activity"><div class="act-icon">🌙</div><div><div class="act-name">Cheomseongdae + Anapji Pond</div><div class="act-desc">L'observatoire le plus ancien d'Asie. Le lac Anapji se reflète parfaitement en soirée.</div></div></div>
       </div>
     </div>
+
     <div class="day-card" onclick="toggle(this)">
-      <div class="day-header"><span class="d-num red">22–23 mai</span><span class="d-title">Busan — mer & énergie</span><span class="d-tag">Côte</span><span class="chevron">▼</span></div>
+      <div class="day-header"><span class="d-num red">23–24 mai</span><span class="d-title">Busan — mer & énergie</span><span class="d-tag">Côte</span><span class="chevron">▼</span></div>
       <div class="day-body">
         <div class="transport-row">🚅 KTX Gyeongju → Busan · 30 min · ~10 000 KRW</div>
         <div class="activity"><div class="act-icon">🎨</div><div><div class="act-name">Village Gamcheon</div><div class="act-desc">Maisons colorées en escalier sur une colline. Fresques murales, vue sur le port.</div></div></div>
@@ -187,33 +249,37 @@
         <div class="tip">💡 <strong>Bon plan :</strong> Gwangalli le soir est moins bondé que Haeundae et bien plus photogénique.</div>
       </div>
     </div>
+
     <div class="day-card" onclick="toggle(this)">
-      <div class="day-header"><span class="d-num teal">24–25 mai</span><span class="d-title">Yeosu — baie et îles</span><span class="d-tag">Nature</span><span class="chevron">▼</span></div>
+      <div class="day-header"><span class="d-num teal">25–26 mai</span><span class="d-title">Yeosu — baie et îles</span><span class="d-tag">Nature</span><span class="chevron">▼</span></div>
       <div class="day-body">
         <div class="transport-row">🚅 Train Busan → Yeosu · 1h45 · ~25 000 KRW</div>
         <div class="activity"><div class="act-icon">🚡</div><div><div class="act-name">Ocean Rail Bike & câble car maritime</div><div class="act-desc">Vélorail suspendu au-dessus de la mer, puis téléphérique pour l'île Dolsan. Réserver à l'avance !</div></div></div>
         <div class="activity"><div class="act-icon">🏝️</div><div><div class="act-name">Île Odongdo</div><div class="act-desc">Accessible à pied par une digue. Phare avec vue sur la baie de Hanryeo.</div></div></div>
         <div class="activity"><div class="act-icon">🦐</div><div><div class="act-name">Gastronomie maritime</div><div class="act-desc">Huîtres grillées, pieuvre fraîche, gejang (crabe cru mariné). Dîner au port de Jinnamgwan.</div></div></div>
-        <div class="tip">💡 <strong>Dimanche 25 mai :</strong> Port très animé, bonne ambiance locale avec les familles coréennes.</div>
+        <div class="tip">💡 <strong>Dimanche 26 mai :</strong> Port très animé le week-end, bonne ambiance locale avec les familles coréennes.</div>
       </div>
     </div>
+
     <div class="day-card" onclick="toggle(this)">
-      <div class="day-header"><span class="d-num gray">26–27 mai</span><span class="d-title">Andong — le cœur confucéen</span><span class="d-tag">UNESCO</span><span class="chevron">▼</span></div>
+      <div class="day-header"><span class="d-num gray">27–28 mai</span><span class="d-title">Andong — le cœur confucéen</span><span class="d-tag">UNESCO</span><span class="chevron">▼</span></div>
       <div class="day-body">
         <div class="transport-row">🚌 Bus Yeosu → Andong · ~3h · ~20 000 KRW</div>
         <div class="activity"><div class="act-icon">🎭</div><div><div class="act-name">Village Hahoe (UNESCO)</div><div class="act-desc">Village de clan préservé depuis le 14e siècle au bord d'une rivière.</div></div></div>
         <div class="activity"><div class="act-icon">🎪</div><div><div class="act-name">Spectacle de masques Hahoe</div><div class="act-desc">Représentation des masques en bois byeolsingut — satire sociale centenaire très vivante.</div></div></div>
         <div class="activity"><div class="act-icon">🍗</div><div><div class="act-name">Jjimdak + Dosan Seowon</div><div class="act-desc">Poulet braisé épicé né ici. Académie confucéenne Dosan Seowon au bord de la rivière.</div></div></div>
-        <div class="tip">💡 <strong>Bon plan :</strong> Visiter Hahoe tôt le matin avant l'arrivée des groupes scolaires.</div>
+        <div class="tip">💡 <strong>Bon plan :</strong> Visiter Hahoe tôt le matin du 28 mai avant l'arrivée des groupes scolaires.</div>
       </div>
     </div>
+
     <div class="day-card" onclick="toggle(this)">
-      <div class="day-header"><span class="d-num blue">28–29 mai</span><span class="d-title">Séoul — shopping & départ</span><span class="d-tag">Fin</span><span class="chevron">▼</span></div>
+      <div class="day-header"><span class="d-num blue">29 mai</span><span class="d-title">Séoul → vol retour 23h30</span><span class="d-tag">Départ</span><span class="chevron">▼</span></div>
       <div class="day-body">
-        <div class="transport-row">🚅 KTX Andong → Séoul · ~2h · ~30 000 KRW</div>
-        <div class="activity"><div class="act-icon">🛍️</div><div><div class="act-name">Myeongdong & Namdaemun</div><div class="act-desc">K-beauty, gochujang, thé vert, dolsot. Namdaemun pour les prix moins touristiques.</div></div></div>
-        <div class="activity"><div class="act-icon">🍖</div><div><div class="act-name">Dîner samgyeopsal d'adieu</div><div class="act-desc">BBQ coréen de porc à table — rituel incontournable pour finir le voyage en beauté.</div></div></div>
-        <div class="activity"><div class="act-icon">✈️</div><div><div class="act-name">Aéroport Incheon (29 mai)</div><div class="act-desc">Navette AREX depuis Seoul Station en 43 min. City check-in possible à la gare. Prévoir 3h avant le vol.</div></div></div>
+        <div class="transport-row">🚅 KTX Andong → Séoul · ~2h · ~30 000 KRW · départ matin</div>
+        <div class="activity"><div class="act-icon">🛍️</div><div><div class="act-name">Myeongdong & Namdaemun (après-midi)</div><div class="act-desc">K-beauty, gochujang, thé vert, dolsot. Namdaemun pour les prix moins touristiques. Bagages en consigne à la gare.</div></div></div>
+        <div class="activity"><div class="act-icon">🍖</div><div><div class="act-name">Dîner samgyeopsal d'adieu · ~19h</div><div class="act-desc">BBQ coréen de porc à table — rituel incontournable. Prévoir de finir avant 20h pour rejoindre l'aéroport.</div></div></div>
+        <div class="activity"><div class="act-icon">✈️</div><div><div class="act-name">Incheon · départ 23h30</div><div class="act-desc">AREX depuis Seoul Station · 43 min. Arriver à l'aéroport vers 20h30 minimum. City check-in possible à la gare avant le dîner.</div></div></div>
+        <div class="tip">⏰ <strong>Planning retour :</strong> City check-in à Seoul Station dès l'arrivée (~10h) → bagages en consigne → journée libre → dîner 19h → AREX 20h → Incheon 20h45 → vol 23h30.</div>
       </div>
     </div>
   </div>
@@ -370,8 +436,54 @@
   <footer>Itinéraire généré avec Claude · Anthropic — Mai 2026</footer>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
   const sliderState = {};
+
+  // Map — init once overview becomes visible
+  let mapReady = false;
+  function initMap() {
+    if (mapReady) return;
+    mapReady = true;
+
+    const stops = [
+      { name: 'Séoul', latlng: [37.5665, 126.9780], dates: '16–18 mai', desc: 'Arrivée 18h30, Gyeongbokgung, Bukchon, Hongdae', color: '#2563EB' },
+      { name: 'Jeonju', latlng: [35.8242, 127.1480], dates: '19–20 mai', desc: 'Village hanok, bibimbap, makgeolli', color: '#D97706' },
+      { name: 'Gyeongju', latlng: [35.8562, 129.2247], dates: '21–22 mai', desc: 'Bulguksa, Tumuli Park, Cheomseongdae', color: '#D97706' },
+      { name: 'Busan', latlng: [35.1796, 129.0756], dates: '23–24 mai', desc: 'Gamcheon, Jagalchi, Haedong Yonggungsa', color: '#DC2626' },
+      { name: 'Yeosu', latlng: [34.7604, 127.6622], dates: '25–26 mai', desc: 'Île Odongdo, câble car maritime', color: '#059669' },
+      { name: 'Andong', latlng: [36.5684, 128.7294], dates: '27–28 mai', desc: 'Village Hahoe UNESCO, masques', color: '#78716C' },
+      { name: 'Séoul', latlng: [37.58, 126.99], dates: '29 mai · vol 23h30', desc: 'Shopping Myeongdong, dîner BBQ, vol retour', color: '#2563EB' },
+    ];
+
+    const map = L.map('trip-map', { zoomControl: true, scrollWheelZoom: false });
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      attribution: '© OpenStreetMap © CARTO',
+      subdomains: 'abcd', maxZoom: 14
+    }).addTo(map);
+
+    // Draw route line
+    const latlngs = stops.map(s => s.latlng);
+    L.polyline(latlngs, { color: '#2563EB', weight: 2.5, opacity: 0.55, dashArray: '6 5' }).addTo(map);
+
+    // Add numbered markers
+    stops.forEach((stop, i) => {
+      const icon = L.divIcon({
+        className: '',
+        html: `<div style="width:28px;height:28px;border-radius:50%;background:${stop.color};border:2.5px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,0.25);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;">${i + 1}</div>`,
+        iconSize: [28, 28], iconAnchor: [14, 14], popupAnchor: [0, -16]
+      });
+      L.marker(stop.latlng, { icon }).addTo(map)
+        .bindPopup(`<div class="map-city">${stop.name}</div><div class="map-dates">${stop.dates}</div><div class="map-desc">${stop.desc}</div>`);
+    });
+
+    // Fit bounds
+    map.fitBounds(L.latLngBounds(latlngs).pad(0.15));
+  }
+
+  // Init map when overview tab is shown (or on first load)
+  document.addEventListener('DOMContentLoaded', () => setTimeout(initMap, 100));
 
   function slide(trackId, dotsId, dir) {
     if (!sliderState[trackId]) sliderState[trackId] = 0;
@@ -388,6 +500,7 @@
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
     document.getElementById(id).classList.add('active');
     btn.classList.add('active');
+    if (id === 'overview') setTimeout(initMap, 50);
   }
 
   function toggle(el) { el.classList.toggle('open'); }
